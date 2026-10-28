@@ -1,0 +1,39 @@
+name: Publish to npm
+
+# GitHub 에서 Release 를 발행하면 npm 에 korea-payroll 패키지를 배포한다.
+# 인증은 npm Trusted Publishing(OIDC)을 쓰고, 설정 전(첫 배포)에는 저장소 Secrets 의 NPM_TOKEN 을 쓴다.
+# Release 태그는 package.json 의 version 과 같아야 한다 (예: v0.1.0).
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      # Trusted Publishing(토큰 없는 OIDC 배포)은 npm 11.5 이상에서만 동작한다
+      - run: npm install -g npm@11
+      - run: npm ci
+      - name: Check tag matches package version
+        if: github.event_name == 'release'
+        run: |
+          version="v$(node -p "require('./package.json').version")"
+          if [ "$version" != "${{ github.event.release.tag_name }}" ]; then
+            echo "::error::Release 태그(${{ github.event.release.tag_name }})와 package.json 버전($version)이 다릅니다"
+            exit 1
+          fi
+      # prepublishOnly 가 타입 검사·테스트·빌드를 한다
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

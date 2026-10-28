@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://korea-payroll-api.greenteapie2023.workers.dev/sitemap.xml

@@ -1,0 +1,19 @@
+name = "korea-payroll-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+# public/ 의 파일(robots.txt 등)은 Worker 를 거치지 않고 바로 제공한다.
+[assets]
+directory = "./public"
+
+# IP 당 분당 120회. 넘으면 429 를 돌려준다.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1002"
+
+  [ratelimits.simple]
+  limit = 120
+  period = 60
+
+[observability]
+enabled = true

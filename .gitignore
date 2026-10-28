@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.log
+.DS_Store
+__pycache__/
+*.egg-info/
+python/dist/
+.pytest_cache/

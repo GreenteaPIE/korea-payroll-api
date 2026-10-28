@@ -1,0 +1,63 @@
+{
+  "name": "korea-payroll",
+  "version": "0.1.0",
+  "description": "대한민국 급여 계산 라이브러리 & Open API — 연봉 실수령액·4대보험·근로소득 간이세액·최저임금·주휴수당·퇴직금",
+  "keywords": [
+    "korea",
+    "payroll",
+    "salary",
+    "net-pay",
+    "social-insurance",
+    "income-tax",
+    "withholding-tax",
+    "minimum-wage",
+    "severance-pay",
+    "korean",
+    "4대보험",
+    "실수령액",
+    "hono",
+    "cloudflare-workers"
+  ],
+  "homepage": "https://github.com/GreenteaPIE/korea-payroll-api#readme",
+  "bugs": {
+    "url": "https://github.com/GreenteaPIE/korea-payroll-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GreenteaPIE/korea-payroll-api.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "default": "./dist/lib/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p scripts",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "tax-table": "node scripts/build-tax-table.ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261027.1",
+    "@hono/swagger-ui": "^0.6.1",
+    "@hono/zod-openapi": "^1.6.3",
+    "@types/node": "^22.20.5",
+    "hono": "^4.13.14",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5",
+    "wrangler": "^4.154.0",
+    "zod": "^4.6.7"
+  }
+}
