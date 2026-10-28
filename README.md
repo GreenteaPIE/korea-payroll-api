@@ -112,6 +112,10 @@ npm run tax-table -- sources/소득세법시행령-별표2-2026-02-27.pdf   # �
 
 요율이 바뀌면 `src/data/rates.ts` 에 기간을 하나 더하고 출처를 적어 주세요.
 
+### 배포
+
+같은 Cloudflare 계정을 쓰는 [korea-holidays-api](https://github.com/GreenteaPIE/korea-holidays-api) 저장소의 `Deploy korea-payroll-api` 워크플로가 이 저장소의 main 을 테스트한 뒤 배포합니다 (매일 03:37 KST, 또는 그 저장소 Actions 에서 바로 실행). 이 저장소에 `CLOUDFLARE_API_TOKEN`·`CLOUDFLARE_ACCOUNT_ID` Secrets 를 넣으면 push 할 때마다 여기서 바로 배포됩니다.
+
 ## 함께 쓰면 좋은 API
 
 - [Korea Holidays API](https://github.com/GreenteaPIE/korea-holidays-api): 공휴일·영업일·연차 계산

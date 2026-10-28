@@ -32,7 +32,7 @@ jobs:
           TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           if [ -z "$TOKEN" ]; then
-            echo "::notice::저장소 Secrets 에 CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID 를 넣으면 배포됩니다"
+            echo "::notice::이 저장소에는 Cloudflare 키가 없어 korea-holidays-api 의 Deploy korea-payroll-api 워크플로가 대신 배포합니다 (매일 한 번, 또는 그쪽 Actions 에서 바로 실행)"
             echo "ready=false" >> "$GITHUB_OUTPUT"
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
